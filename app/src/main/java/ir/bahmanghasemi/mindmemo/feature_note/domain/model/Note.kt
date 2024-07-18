@@ -7,7 +7,10 @@ import androidx.room.PrimaryKey
 data class Note(
     val title: String,
     val content: String,
+    val timeStamp: Long,
     val color: Int,
     @PrimaryKey(autoGenerate = true)
     val id: Int = 0
 )
+
+class InvalidNoteException(message: String) : Exception(message)
