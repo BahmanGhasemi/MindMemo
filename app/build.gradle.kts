@@ -33,6 +33,7 @@ android {
         }
     }
     compileOptions {
+        isCoreLibraryDesugaringEnabled = true
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
@@ -70,8 +71,9 @@ dependencies {
     implementation (libs.androidx.hilt.navigation.compose)
 
     // Lifecycle
-    implementation (libs.androidx.lifecycle.viewmodel.ktx)
+//    implementation (libs.androidx.lifecycle.viewmodel.ktx)
     implementation (libs.androidx.lifecycle.runtime.ktx)
+    implementation (libs.androidx.lifecycle.viewmodel.compose)
 
     // Retrofit
     implementation (libs.retrofit)
@@ -79,7 +81,7 @@ dependencies {
 
     // Coroutines
     implementation (libs.kotlinx.coroutines.core)
-    implementation (libs.kotlinx.coroutines.android)
+    implementation(libs.kotlinx.coroutines.android)
 
     // hilt
     implementation (libs.hilt.android)
@@ -103,6 +105,7 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+    coreLibraryDesugaring(libs.desugar.jdk.libs)
 }
 
 kapt {
