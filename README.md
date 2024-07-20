@@ -1,5 +1,6 @@
 # A Simple NoteApp
-# using: 
+
+I Used: 
 - Clean Architecture
 - Mvvm Pattern
 - Compose Ui
