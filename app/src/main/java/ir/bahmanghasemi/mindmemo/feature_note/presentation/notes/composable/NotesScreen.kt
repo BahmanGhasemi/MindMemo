@@ -23,12 +23,13 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarDuration
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.State
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
@@ -41,9 +42,10 @@ import ir.bahmanghasemi.mindmemo.feature_note.presentation.notes.NotesState
 import kotlinx.coroutines.launch
 
 @Composable
-fun NoteScreen(
-    state: MutableState<NotesState>,
-    onEvent: (NotesEvent) -> Unit
+fun NotesScreen(
+    state: State<NotesState>,
+    onEvent: (NotesEvent) -> Unit,
+    onNavigate: (Int?) -> Unit
 ) {
     val scope = rememberCoroutineScope()
     val snackBarHostState = remember { SnackbarHostState() }
@@ -51,12 +53,10 @@ fun NoteScreen(
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         floatingActionButton = {
-            FloatingActionButton(onClick = {
-                /*
-                * TODO
-                * Call OnFabClicked to navigate to AddNoteScreen
-                * */
-            }) {
+            FloatingActionButton(
+                onClick = { onNavigate(-1) },
+                containerColor = MaterialTheme.colorScheme.primary
+            ) {
                 Icon(imageVector = Icons.Rounded.Add, contentDescription = "Add Note")
             }
         },
@@ -98,25 +98,24 @@ fun NoteScreen(
                 )
             }
 
-            LazyColumn(Modifier.fillMaxSize()) {
-                items(items = state.value.notes, key = { it.id }) {
+            LazyColumn(Modifier.fillMaxSize(), verticalArrangement = Arrangement.spacedBy(16.dp)) {
+                items(items = state.value.notes) {
                     NoteItem(
                         modifier = Modifier
                             .fillMaxWidth()
                             .clickable {
-                                /*
-                                * TODO
-                                * call OnEditNote event to pass data for updating Note
-                                *
-                                * */
+                                onNavigate(it.id)
                             },
                         note = it,
                         onDeleteClick = {
                             onEvent(NotesEvent.DeleteNote(it))
                             scope.launch {
+                                snackBarHostState.currentSnackbarData?.dismiss()
+
                                 val result = snackBarHostState.showSnackbar(
                                     "Note item deleted",
-                                    actionLabel = "Undo"
+                                    actionLabel = "Undo",
+                                    duration = SnackbarDuration.Short
                                 )
                                 if (result == SnackbarResult.ActionPerformed) {
                                     onEvent(NotesEvent.RestoreNote)

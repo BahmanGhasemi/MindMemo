@@ -9,8 +9,8 @@ class NoteRepositoryImpl(
     private val dao: NoteDao
 ) : NoteRepository {
 
-    override suspend fun upsertNote(note: Note) {
-        dao.upsertNote(note)
+    override suspend fun insertNote(note: Note) {
+        dao.insertNote(note)
     }
 
     override suspend fun deleteNote(note: Note) {
