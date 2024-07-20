@@ -21,6 +21,7 @@ fun TransparentTextField(
         value = text,
         onValueChange = onTextChanged,
         singleLine = isSingleLine,
+        textStyle = textStyle,
         decorationBox = { innerTextField ->
             if (text.isEmpty()) {
                 Text(text = hint, color = Color.Gray, style = textStyle)

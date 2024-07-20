@@ -10,7 +10,7 @@ data class Note(
     val timeStamp: Long,
     val color: Int,
     @PrimaryKey(autoGenerate = true)
-    val id: Int = 0
+    val id: Int? = null
 )
 
 class InvalidNoteException(message: String) : Exception(message)

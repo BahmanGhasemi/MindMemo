@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.kotlin.serialization)
     id("kotlin-kapt")
     id ("com.google.dagger.hilt.android")
 }
@@ -66,18 +67,13 @@ dependencies {
 
     // Compose
     implementation (libs.lifecycle.runtime.compose)
-    implementation (libs.androidx.navigation.compose)
-    implementation (libs.androidx.material.icons.extended)
-    implementation (libs.androidx.hilt.navigation.compose)
-
-    // Lifecycle
-//    implementation (libs.androidx.lifecycle.viewmodel.ktx)
-    implementation (libs.androidx.lifecycle.runtime.ktx)
     implementation (libs.androidx.lifecycle.viewmodel.compose)
+    implementation (libs.androidx.material.icons.extended)
 
-    // Retrofit
-    implementation (libs.retrofit)
-    implementation (libs.retrofit.gson)
+    // Navigation
+    implementation (libs.androidx.navigation.compose)
+    implementation (libs.androidx.hilt.navigation.compose)
+    implementation (libs.kotlinx.serialization.json)
 
     // Coroutines
     implementation (libs.kotlinx.coroutines.core)
@@ -89,14 +85,12 @@ dependencies {
 
     // Room
     implementation (libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
     //noinspection KaptUsageInsteadOfKsp
     kapt(libs.androidx.room.compiler)
-    implementation(libs.androidx.room.ktx)
 
-    // DataStore
-    implementation (libs.androidx.datastore)
-    implementation (libs.kotlinx.serialization.json)
-    implementation (libs.kotlinx.collections.immutable)
+    // DateTime Api
+    coreLibraryDesugaring(libs.desugar.jdk.libs)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -105,7 +99,6 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-    coreLibraryDesugaring(libs.desugar.jdk.libs)
 }
 
 kapt {

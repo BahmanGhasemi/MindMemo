@@ -19,7 +19,7 @@ fun OrderSection(
     noteOrder: NoteOrder = NoteOrder.Date(OrderType.Ascending),
     onOrderChange: (NoteOrder) -> Unit
 ) {
-    Column(modifier = modifier, verticalArrangement = Arrangement.spacedBy(12.dp)) {
+    Column(modifier = modifier) {
         Row(
             modifier = Modifier.fillMaxWidth(),
             verticalAlignment = Alignment.CenterVertically,
