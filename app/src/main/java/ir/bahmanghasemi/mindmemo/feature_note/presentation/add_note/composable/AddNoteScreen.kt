@@ -43,7 +43,8 @@ fun AddNoteScreen(
     oneTimeEvent: SharedFlow<UiEvent>,
     onEvent: (AddNoteEvent) -> Unit,
     onNavigateUp: () -> Unit,
-    id: Int
+    id: Int,
+    colorId: Int
 ) {
     val scope = rememberCoroutineScope()
     val snackBarState = remember { SnackbarHostState() }
@@ -55,6 +56,7 @@ fun AddNoteScreen(
 
     LaunchedEffect(key1 = id) {
         if (id != -1) {
+            onEvent(AddNoteEvent.SetColor(colorId))
             onEvent(AddNoteEvent.SetId(id))
             onEvent(AddNoteEvent.GetNote(id))
         }
@@ -75,7 +77,10 @@ fun AddNoteScreen(
     Scaffold(
         modifier = Modifier.fillMaxSize(),
         floatingActionButton = {
-            FloatingActionButton(onClick = { onEvent(AddNoteEvent.Save) }, containerColor = MaterialTheme.colorScheme.primary) {
+            FloatingActionButton(
+                onClick = { onEvent(AddNoteEvent.Save) },
+                containerColor = MaterialTheme.colorScheme.primary
+            ) {
                 Icon(imageVector = Icons.Rounded.SaveAs, contentDescription = "Save Note")
             }
         },
