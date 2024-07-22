@@ -39,13 +39,14 @@ import androidx.compose.ui.unit.dp
 import ir.bahmanghasemi.mindmemo.R
 import ir.bahmanghasemi.mindmemo.feature_note.presentation.notes.NotesEvent
 import ir.bahmanghasemi.mindmemo.feature_note.presentation.notes.NotesState
+import ir.bahmanghasemi.mindmemo.feature_note.presentation.util.NoteColor
 import kotlinx.coroutines.launch
 
 @Composable
 fun NotesScreen(
     state: State<NotesState>,
     onEvent: (NotesEvent) -> Unit,
-    onNavigate: (Int?) -> Unit
+    onNavigate: (Int? , Int) -> Unit
 ) {
     val scope = rememberCoroutineScope()
     val snackBarHostState = remember { SnackbarHostState() }
@@ -54,7 +55,7 @@ fun NotesScreen(
         modifier = Modifier.fillMaxSize(),
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { onNavigate(-1) },
+                onClick = { onNavigate(-1 , NoteColor.entries.random().randomColor()) },
                 containerColor = MaterialTheme.colorScheme.primary
             ) {
                 Icon(imageVector = Icons.Rounded.Add, contentDescription = "Add Note")
@@ -104,7 +105,7 @@ fun NotesScreen(
                         modifier = Modifier
                             .fillMaxWidth()
                             .clickable {
-                                onNavigate(it.id)
+                                onNavigate(it.id, it.color)
                             },
                         note = it,
                         onDeleteClick = {

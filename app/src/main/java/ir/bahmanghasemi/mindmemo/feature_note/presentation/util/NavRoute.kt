@@ -6,4 +6,4 @@ import kotlinx.serialization.Serializable
 object Notes
 
 @Serializable
-data class AddNote(val id: Int)
+data class AddNote(val id: Int, val colorId:Int)
