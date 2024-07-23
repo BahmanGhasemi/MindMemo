@@ -22,10 +22,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.clipPath
 import androidx.compose.ui.graphics.toArgb
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.core.graphics.ColorUtils
+import ir.bahmanghasemi.mindmemo.core.util.TestTags
 import ir.bahmanghasemi.mindmemo.feature_note.domain.model.Note
 
 @Composable
@@ -36,7 +38,7 @@ fun NoteItem(
     cutCornerRadius: Dp = 30.dp,
     onDeleteClick: (Note) -> Unit
 ) {
-    Box(modifier = modifier) {
+    Box(modifier = modifier.testTag(TestTags.NOTE_ITEM)) {
         Canvas(modifier = Modifier.matchParentSize()) {
             val drawPath = Path().apply {
                 lineTo(size.width - cutCornerRadius.toPx(), 0f)

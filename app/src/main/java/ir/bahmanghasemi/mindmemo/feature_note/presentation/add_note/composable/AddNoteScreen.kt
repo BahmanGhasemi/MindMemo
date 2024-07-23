@@ -27,6 +27,8 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import ir.bahmanghasemi.mindmemo.R
 import ir.bahmanghasemi.mindmemo.feature_note.presentation.add_note.AddNoteEvent
@@ -69,7 +71,7 @@ fun AddNoteScreen(
                     snackBarState.showSnackbar(message = it.message)
                 }
 
-                UiEvent.Success -> onNavigateUp()
+                is UiEvent.Success -> onNavigateUp()
             }
         }
     }
@@ -81,7 +83,7 @@ fun AddNoteScreen(
                 onClick = { onEvent(AddNoteEvent.Save) },
                 containerColor = MaterialTheme.colorScheme.primary
             ) {
-                Icon(imageVector = Icons.Rounded.SaveAs, contentDescription = "Save Note")
+                Icon(imageVector = Icons.Rounded.SaveAs, contentDescription = "Save")
             }
         },
         floatingActionButtonPosition = FabPosition.End,
@@ -116,7 +118,10 @@ fun AddNoteScreen(
             )
 
             TransparentTextField(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth().
+                semantics {
+                    contentDescription = "TitleTextField"
+                },
                 text = state.value.title,
                 onTextChanged = { onEvent(AddNoteEvent.SetTitle(it)) },
                 hint = stringResource(R.string.enter_title),
@@ -124,7 +129,9 @@ fun AddNoteScreen(
             )
 
             TransparentTextField(
-                modifier = Modifier.fillMaxSize(),
+                modifier = Modifier.fillMaxSize().semantics {
+                    contentDescription = "ContentTextField"
+                },
                 text = state.value.content,
                 onTextChanged = { onEvent(AddNoteEvent.SetContent(it)) },
                 hint = stringResource(R.string.enter_content_text),

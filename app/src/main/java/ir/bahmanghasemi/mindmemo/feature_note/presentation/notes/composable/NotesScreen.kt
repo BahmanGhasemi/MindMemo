@@ -34,9 +34,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import ir.bahmanghasemi.mindmemo.R
+import ir.bahmanghasemi.mindmemo.core.util.TestTags
 import ir.bahmanghasemi.mindmemo.feature_note.presentation.notes.NotesEvent
 import ir.bahmanghasemi.mindmemo.feature_note.presentation.notes.NotesState
 import ir.bahmanghasemi.mindmemo.feature_note.presentation.util.NoteColor
@@ -58,7 +60,7 @@ fun NotesScreen(
                 onClick = { onNavigate(-1 , NoteColor.entries.random().randomColor()) },
                 containerColor = MaterialTheme.colorScheme.primary
             ) {
-                Icon(imageVector = Icons.Rounded.Add, contentDescription = "Add Note")
+                Icon(imageVector = Icons.Rounded.Add, contentDescription = "Add")
             }
         },
         floatingActionButtonPosition = FabPosition.End,
@@ -93,7 +95,7 @@ fun NotesScreen(
                 exit = fadeOut() + slideOutVertically()
             ) {
                 OrderSection(
-                    Modifier.fillMaxWidth(),
+                    Modifier.fillMaxWidth().testTag(TestTags.ORDER_SECTION),
                     noteOrder = state.value.noteOrder,
                     onOrderChange = { onEvent(NotesEvent.Order(it)) }
                 )

@@ -4,7 +4,7 @@ plugins {
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.kotlin.serialization)
     id("kotlin-kapt")
-    id ("com.google.dagger.hilt.android")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -14,11 +14,12 @@ android {
     defaultConfig {
         applicationId = "ir.bahmanghasemi.mindmemo"
         minSdk = 23
+        //noinspection OldTargetApi
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "ir.bahmanghasemi.mindmemo.HiltTestRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -66,25 +67,25 @@ dependencies {
     implementation(libs.androidx.material3)
 
     // Compose
-    implementation (libs.lifecycle.runtime.compose)
-    implementation (libs.androidx.lifecycle.viewmodel.compose)
-    implementation (libs.androidx.material.icons.extended)
+    implementation(libs.lifecycle.runtime.compose)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.material.icons.extended)
 
     // Navigation
-    implementation (libs.androidx.navigation.compose)
-    implementation (libs.androidx.hilt.navigation.compose)
-    implementation (libs.kotlinx.serialization.json)
+    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.kotlinx.serialization.json)
 
     // Coroutines
-    implementation (libs.kotlinx.coroutines.core)
+    implementation(libs.kotlinx.coroutines.core)
     implementation(libs.kotlinx.coroutines.android)
 
     // hilt
-    implementation (libs.hilt.android)
-    kapt (libs.hilt.compiler)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.compiler)
 
     // Room
-    implementation (libs.androidx.room.runtime)
+    implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
     //noinspection KaptUsageInsteadOfKsp
     kapt(libs.androidx.room.compiler)
@@ -97,18 +98,21 @@ dependencies {
 
     // Unit Test
     testImplementation(libs.junit)
-    testImplementation (libs.truth)
-    testImplementation (libs.kotlinx.coroutines.test)
+    testImplementation(libs.truth)
+    testImplementation(libs.kotlinx.coroutines.test)
+//    testImplementation(libs.dagger.hilt.android.testing)
+//    kaptTest(libs.hilt.compiler)
 
     // Instrumental Test
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.ui.test.junit4)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation (libs.truth)
-    androidTestImplementation (libs.kotlinx.coroutines.test)
-    androidTestImplementation (libs.hilt.android.testing)
-    kaptAndroidTest (libs.hilt.android.compiler)
+    androidTestImplementation(libs.truth)
+    androidTestImplementation(libs.kotlinx.coroutines.test)
+    // For instrumentation tests
+    androidTestImplementation ("com.google.dagger:hilt-android-testing:2.51.1")
+    kaptAndroidTest ("com.google.dagger:hilt-compiler:2.51.1")
 }
 
 kapt {
