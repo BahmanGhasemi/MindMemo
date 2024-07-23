@@ -8,6 +8,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 
 @Composable
 fun DefaultRadioButton(
@@ -17,7 +18,7 @@ fun DefaultRadioButton(
     onSelect: () -> Unit
 ) {
     Row(
-        modifier = modifier,
+        modifier = modifier.testTag(text),
         verticalAlignment = Alignment.CenterVertically
     ) {
         RadioButton(selected = selected, onClick = onSelect, colors = RadioButtonDefaults.colors(
