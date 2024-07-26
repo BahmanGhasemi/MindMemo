@@ -18,13 +18,16 @@ fun DefaultRadioButton(
     onSelect: () -> Unit
 ) {
     Row(
-        modifier = modifier.testTag(text),
+        modifier = modifier,
         verticalAlignment = Alignment.CenterVertically
     ) {
-        RadioButton(selected = selected, onClick = onSelect, colors = RadioButtonDefaults.colors(
-            selectedColor = MaterialTheme.colorScheme.primary,
-            unselectedColor = MaterialTheme.colorScheme.onBackground
-        ))
+        RadioButton(
+            modifier = Modifier.testTag(text),
+            selected = selected, onClick = onSelect, colors = RadioButtonDefaults.colors(
+                selectedColor = MaterialTheme.colorScheme.primary,
+                unselectedColor = MaterialTheme.colorScheme.onBackground
+            )
+        )
         Text(text = text, style = MaterialTheme.typography.titleSmall)
     }
 }
