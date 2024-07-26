@@ -7,3 +7,6 @@ I Used:
 - Coroutine & Flow
 - Dagger-Hilt
 - Room Database
+- Unit Test
+- Integration Test
+- End-To-End Test
