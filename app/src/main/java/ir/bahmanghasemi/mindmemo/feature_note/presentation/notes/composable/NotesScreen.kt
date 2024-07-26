@@ -48,7 +48,7 @@ import kotlinx.coroutines.launch
 fun NotesScreen(
     state: State<NotesState>,
     onEvent: (NotesEvent) -> Unit,
-    onNavigate: (Int? , Int) -> Unit
+    onNavigate: (Int?, Int) -> Unit
 ) {
     val scope = rememberCoroutineScope()
     val snackBarHostState = remember { SnackbarHostState() }
@@ -57,7 +57,7 @@ fun NotesScreen(
         modifier = Modifier.fillMaxSize(),
         floatingActionButton = {
             FloatingActionButton(
-                onClick = { onNavigate(-1 , NoteColor.entries.random().randomColor()) },
+                onClick = { onNavigate(-1, NoteColor.entries.random().randomColor()) },
                 containerColor = MaterialTheme.colorScheme.primary
             ) {
                 Icon(imageVector = Icons.Rounded.Add, contentDescription = "Add")
@@ -95,7 +95,9 @@ fun NotesScreen(
                 exit = fadeOut() + slideOutVertically()
             ) {
                 OrderSection(
-                    Modifier.fillMaxWidth().testTag(TestTags.ORDER_SECTION),
+                    Modifier
+                        .fillMaxWidth()
+                        .testTag(TestTags.ORDER_SECTION),
                     noteOrder = state.value.noteOrder,
                     onOrderChange = { onEvent(NotesEvent.Order(it)) }
                 )
@@ -116,9 +118,9 @@ fun NotesScreen(
                                 snackBarHostState.currentSnackbarData?.dismiss()
 
                                 val result = snackBarHostState.showSnackbar(
-                                    "Note item deleted",
+                                    message = "Note item deleted",
                                     actionLabel = "Undo",
-                                    duration = SnackbarDuration.Short
+                                    duration = SnackbarDuration.Short,
                                 )
                                 if (result == SnackbarResult.ActionPerformed) {
                                     onEvent(NotesEvent.RestoreNote)

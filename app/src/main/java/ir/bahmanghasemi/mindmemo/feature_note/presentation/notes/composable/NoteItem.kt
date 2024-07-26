@@ -89,7 +89,7 @@ fun NoteItem(
             modifier = Modifier.align(Alignment.BottomEnd),
             onClick = { onDeleteClick(note) }
         ) {
-            Icon(imageVector = Icons.Rounded.Delete, contentDescription = "Delete Note")
+            Icon(imageVector = Icons.Rounded.Delete, contentDescription = "Delete")
         }
     }
 }
